@@ -1,0 +1,22 @@
+#!/bin/bash 
+
+p=0.70
+
+a=$(bc<<<"scale=2;1024/100")
+
+freespace=`df -m | grep "/dev/vdb1" | awk '{print $4}'` 
+
+b=$(bc<<<"scale=2;$freespace/100") 
+
+b1=$(bc<<<"scale=2;$a-$b")
+
+echo "percent occupied is 0"$b1"%"
+
+if [ $(echo "$b1 > $p" | bc) ]
+
+then 
+ 	tar cf mytar.tar.gz --directory=/dev/vdb1/media/hdd2/LOG
+ 	cp /dev/vdb1 /dev/vdb2
+ 	rm -rf /dev/vdb1
+ 
+fi
